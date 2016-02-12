@@ -5,7 +5,6 @@
 	</head>
 	<body style="background-color: #000000; color: #FFFFFF; font-weight: bold; padding: 0 10px;">
 		<h1>HELLO </h1>
-
 		<form action="/zhekan/inbox/deploy/gitbranch.php" method="get">
 			<input type="text" name="NEW_BRANCH">
 			<input type="submit" value="Создать ветку">
@@ -13,7 +12,8 @@
 		<h2>Список веток:</h2>
 		<?
 		$commands = array(
-			'',
+			'echo $PWD',
+			'whoami',
 			'git branch',
 		);
 		$output = '';
