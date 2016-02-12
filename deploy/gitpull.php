@@ -1,37 +1,25 @@
 <?php
-	/**
-	 * GIT DEPLOYMENT SCRIPT
-	 *
-	 * Used for automatically deploying websites via github or bitbucket, more deets here:
-	 *
-	 *		https://gist.github.com/1809044
-	 */
-	// The commands
-	$commands = array(
-		'echo $PWD',
-		'whoami',
-		'git pull',
-	);
-	// Run the commands for output
-	$output = '';
-	foreach($commands AS $command){
-		// Run it
-		$tmp = shell_exec($command);
-		// Output
-		$output .= "<span style=\"color: #6BE234;\">\$</span> <span style=\"color: #729FCF;\">{$command}\n</span>";
-		$output .= htmlentities(trim($tmp)) . "\n";
-	}
-	// Make it pretty for manual user access (and why not?)
-?>
-<!DOCTYPE HTML>
-<html lang="en-US">
-<head>
-	<meta charset="UTF-8">
-	<title>Zhekan Git pull</title>
-</head>
-<body style="background-color: #000000; color: #FFFFFF; font-weight: bold; padding: 0 10px;">
-<pre>
-<?php echo $output; ?>
-</pre>
-</body>
-</html>
+
+	$dir = "/home/bitrix/ext_www/rus.expertit.kh.ua/";
+	$log = "/home/bitrix/ext_www/rus.expertit.kh.ua/zhekan/inbox/deploy/pull.logs";
+	$branch = "master";
+
+
+	// log
+	echo shell_exec("date >> {$log}");
+	echo shell_exec("echo \ >> {$log}");
+
+	echo shell_exec("cd {$dir}; /usr/bin/git reset --hard HEAD 2>&1 >> {$log};");
+	echo shell_exec("cd {$dir}; /usr/bin/git checkout {$branch} 2>&1 >> {$log};");
+	echo shell_exec("cd {$dir}; /usr/bin/git pull origin {$branch} 2>&1 >> {$log};");
+
+	file_put_contents('payload.logs', serialize($_POST['payload']), FILE_APPEND);
+	// echo shell_exec("cd {$dir}; /usr/bin/git checkout master 2>&1 >> {$log};");
+	// echo shell_exec("cd {$dir}; /usr/bin/git pull 2>&1 >> {$log};");
+	// echo shell_exec("cd {$dir}; /usr/bin/git fetch 2>&1 >> {$log};");
+	// echo shell_exec("cd {$dir}; /usr/bin/git reset --hard origin/{$branch} 2>&1 >> {$log};");
+
+	// log
+	echo shell_exec("echo \ >> {$log}");
+
+	?>
